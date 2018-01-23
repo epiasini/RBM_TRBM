@@ -1,4 +1,4 @@
-function [ logZ ] = TRBM_logZ_Annealed_Importance_Sampling( M, K, Nt, Nb_perseq)
+function [ logZ ] = TRBM_logZ_Annealed_Importance_Sampling( M, K, Nt, Nb_perseq, pj_l)
 %RBM_Z_ANNEALED_IMPORTANCE_SAMPLING
 % computes the partition function Z for TRBM models using Annealed Importance Sampling
 % the partition function Z is the normalization factor for the probability of 
@@ -30,8 +30,8 @@ Nt = Nb_perseq*ceil(Nt/Nb_perseq); % make sure Nb_perseq divides Nt
 [Nj, Ni, Tmem] = size(M.w);
 
 if  Nj>Ni
-    Minv = struct('a',M.b,'b',M.a,'w',permute(M.w,[2 1 3]));
-    [ Z ] = TRBM_logZ_Annealed_Importance_Sampling( Minv, K, Nt, Nb_perseq);
+    Minv = struct('a',M.b,'b',M.a,'w',permute(M.w,[2 1 3]), 'pi_l', pj_l);
+    [ logZ ] = TRBM_logZ_Annealed_Importance_Sampling( Minv, K, Nt, Nb_perseq, []);
     
 else
     %%

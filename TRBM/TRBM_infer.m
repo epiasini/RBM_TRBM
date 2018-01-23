@@ -128,7 +128,7 @@ if param.Ncomp_ph
 end
 
 %% Training
-fprintf(['Sarting for ' int2str(Nstep) ' steps with ' int2str(Nbatch) ' batches\n']);
+fprintf(['Starting for ' int2str(Nstep) ' steps with ' int2str(Nbatch) ' batches\n']);
 
 comp_i = 0;
 for step_i = 1:Nstep
@@ -204,7 +204,7 @@ for step_i = 1:Nstep
             end
             if ~mod(comp_i,param.Ncomp_Z)
                 [testvals.Z_l(1,comp_i/param.Ncomp_Z)] = ...
-                    exp(TRBM_logZ_Annealed_Importance_Sampling( M, param.AIS_Nstep, param.AIS_Nt, param.loglikel_Nbin));
+                    exp(TRBM_logZ_Annealed_Importance_Sampling( M, param.AIS_Nstep, param.AIS_Nt, param.loglikel_Nbin, mean(pj_l,2)));
             end
             if ~mod(comp_i,param.Ncomp_ph)
                 [ ~,~, pj_l_mod ] = TRBM_simulate_cyclic(M, v_CD(:,mod(1:param.ph_Nt,end)+1), param.ph_Nstep );
